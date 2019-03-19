@@ -5,7 +5,7 @@ import _ from 'lodash'
  * Pipeline Visualization used to denote a pipeline with stages, counts and values.
  * @extends {React#Component}
  */
-class PipelineComponent extends React.Component {
+class PipelineComponent extends Component {
 
     /**
      * creates the instance
@@ -20,6 +20,7 @@ class PipelineComponent extends React.Component {
      */
     constructor(props, context) {
       super(props, context)
+      this.myRef = React.createRef();
     }
   
     /**
@@ -50,7 +51,9 @@ class PipelineComponent extends React.Component {
     _computeDimensions() {
   
       // let svgEl = React.findDOMNode(this.refs.chartElement);
-      let svgEl = this.refs.chartElement
+      // let svgEl = this.refs.chartElement
+      let svgEl = this.myRef.current
+      console.log('-------ref', this.myRef)
 
       return {
         width: svgEl.clientWidth || svgEl.parentNode.clientWidth,
@@ -448,7 +451,9 @@ class PipelineComponent extends React.Component {
       }
   
       // svgEl = React.findDOMNode(this.refs.chartElement);
-      svgEl = this.refs.chartElement
+      // svgEl = this.refs.chartElement
+      svgEl = this.myRef.current
+      // console.log('-------- svgEl', this.refs)
 
       //empty the SVG element for fresh rendering
       while (svgEl.firstChild) {
@@ -522,7 +527,7 @@ class PipelineComponent extends React.Component {
     render() {
       return (
         <div className="chart-pipeline" >
-          <svg ref="svgElement" ref ="chartElement"></svg>
+          <svg ref={this.myRef}></svg>
         </div>
       )
     }
